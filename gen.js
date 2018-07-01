@@ -30,13 +30,15 @@ function die (err) {
 
 const def = parseDir(appDir)
 
-console.log(inspect(def, {depth: 10, color: true}))
-
 if (!def) {
   die('No testlist.md files found anywhere in the app')
 }
 
+console.log('Creating checklist HTML pages...'.gray)
+
 writeHtml('', def)
 writeIndex(def)
+
+console.log('Done!'.bold.green)
 
 process.exit()

@@ -1,74 +1,16 @@
 <html>
   <head>
-    <title>{{title}}</title>
+    <title>Testlists</title>
     <style>
-      body {
-        font-family: Open Sans,Arial;
-        color: #454545;
-        font-size: 16px;
-        margin: 2em auto;
-        max-width: 800px;
-        padding: 1em;
-        line-height: 1.4;
-      }
-
-      .container {
-        width: 600px;
-        margin: 0 auto;
-      }
-
-      ul {
-        list-style: inside none;
-        padding-left: 1em;
-      }
-
-      ul li {
-        margin-bottom: 0.25em;
-      }
-
-      .button-container {
-        padding-top: 1em;
-      }
-
-      button {
-        padding: 1em 1.5em;
-        font-size: 14px;
-        border: none;
-        background: #333;
-        color: #fff;
-      }
+      {{>styles}}
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="navigation">
-        
-      </div>
-      <div class="content">
-        {{{content}}}
-
-        <div class="button-container">
-          <button type="button" onclick="submitChecklist()">Save</button>
-        </div>
-      </div>
+      <h1>Checklists</h1>
+      <ul>
+        {{#nav}}{{>navigation}}{{/nav}}
+      </ul>
     </div>
-
-    <script type="text/javascript">
-      function submitChecklist () {
-        const inputs = document.querySelectorAll('input[type=checkbox]')
-        let done = true
-        for(var i = 0; i < inputs.length; i++) {
-          if (!inputs[i].checked) {
-            done = false
-          }
-        }
-        if (!done) {
-          alert("You aren't done yet!")
-        }
-        else {
-          alert('Done!')
-        }
-      }
-    </script>
   </body>
 </html>

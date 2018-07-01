@@ -1,0 +1,12 @@
+<li>
+  {{#if href}}
+    <a href="{{href}}">{{label}}</a>
+  {{else}}
+    <code>{{label}}/</code>
+  {{/if}}
+  {{#if subNav}}
+    <ul>
+      {{#subNav}}{{>navigation}}{{/subNav}}
+    </ul>
+  {{/if}}
+</li>

@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+    <style>
+      {{>styles}}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="navigation">
+        
+      </div>
+      <div class="content">
+        <a href="./index.html" class="back">Back</a>
+
+        {{{content}}}
+
+        <div class="button-container">
+          <button type="button" onclick="submitChecklist()">Save</button>
+        </div>
+
+        <div>
+          <h3>Recent Checks</h3>
+          <ul id="recent-checks">
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      const key = '{{key}}'
+      function submitChecklist () {
+        const inputs = document.querySelectorAll('input[type=checkbox]')
+        let done = true
+        for(var i = 0; i < inputs.length; i++) {
+          if (!inputs[i].checked) {
+            done = false
+          }
+        }
+
+        if (!done) {
+          if (!confirm('Not everything was checked off. Continue anyway?')) {
+            return
+          }
+        }
+
+        addCheck(prompt("Notes"))
+
+        for(var i = 0; i < inputs.length; i++) {
+          inputs[i].checked = false
+        }
+      }
+
+      function getChecks () {
+        let checks = localStorage.getItem('checks-' + key)
+
+        try {
+          checks = JSON.parse(checks)
+        }
+        catch {
+          checks = []
+        }
+
+        checks = checks || []
+
+        const cutoff = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).getTime()
+        checks = checks
+          .filter((a) => {
+            console.log('a.time',a.time);
+            const time = new Date(a.time).getTime()
+            console.log('time',time);
+            console.log('cutoff',cutoff);
+            return time > (cutoff)
+          })
+          .sort((a, b) => {
+            return a.time > b.time ? -1 : 1
+          })
+
+        console.log('checks',checks);
+
+        return checks
+      }
+
+      function addCheck (notes) {
+        notes = notes || ""
+        const checks = getChecks()
+        checks.push({
+          notes: notes,
+          time: new Date()
+        })
+
+        saveChecks(checks)
+        renderRecents()
+      }
+
+      function saveChecks (checks) {
+        localStorage.setItem('checks-' + key, JSON.stringify(checks))
+      }
+
+      function renderRecents () {
+        const checks = getChecks()
+        const ul = document.getElementById('recent-checks')
+        ul.innerHTML = ''
+
+        if (!checks.length) {
+          ul.innerHTML = '<li>No items</li>'
+        }
+
+        checks.forEach((check) => {
+          const li = document.createElement('LI')
+          li.innerHTML = new Date(check.time).toLocaleString() + ': ' + check.notes
+          ul.appendChild(li)
+        })
+      }
+
+      renderRecents()
+    </script>
+  </body>
+</html>

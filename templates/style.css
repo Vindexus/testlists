@@ -1,0 +1,46 @@
+body {
+  font-family: Open Sans,Arial;
+  color: #454545;
+  font-size: 16px;
+  margin: 2em auto;
+  max-width: 800px;
+  padding: 1em;
+  line-height: 1.4;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: inside none;
+  padding-left: 0;
+}
+
+li > ul {
+  padding-left: 1em;
+}
+
+ul li {
+  margin-bottom: 0.25em;
+}
+
+.button-container {
+  padding-top: 1em;
+}
+
+button {
+  padding: 1em 1.5em;
+  font-size: 14px;
+  border: none;
+  background: #333;
+  color: #fff;
+}
+
+a.back {
+  display: block;
+  color: #999;
+  margin-bottom: 1em;
+  color: blue;
+} 
