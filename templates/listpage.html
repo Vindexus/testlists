@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{{title}} - [{{branch}}]</title>
+    <title>{{title}}{{#if branch}} - [{{branch}}]{{/if}}</title>
     <style>
       {{>styles}}
     </style>
@@ -9,7 +9,7 @@
     <div class="container">
       <div class="content">
         <a href="./index.html" class="back">Back</a>
-
+        {{>branch}}
         {{{content}}}
 
         <div class="button-container">
@@ -18,28 +18,44 @@
 
         <div>
           <h3>Recent Checks</h3>
-          {{#if branch}}
-            <div class="current-branch">
-              Branch: <code>{{branch}}</code>
-            </div>
-          {{/if}}
+          {{>branch}}
           <ul id="recent-checks">
           </ul>
+
+           <button type="button" onclick="clearChecks()">Clear</button>
         </div>
       </div>
       {{>last-gen-message}}
     </div>
-
+    <script type="text/javascript" src="{{src}}/timeago.js"></script>
     <script type="text/javascript">
       const STORAGE_KEY = '{{key}}-{{branch}}'
+      const checkboxes = document.querySelectorAll('input[type=checkbox]')
+
+      function clearChecks () {
+        if (!prompt("Type DELETE to delete recent checks") !== 'DELETE') {
+          return
+        }
+
+        saveChecks([])
+        renderRecents()
+      }
+
       function submitChecklist () {
         const inputs = document.querySelectorAll('input[type=checkbox]')
+        const items = []
         let done = true
         for(var i = 0; i < inputs.length; i++) {
           if (!inputs[i].checked) {
             done = false
           }
+
+          items.push({
+            text: inputs[i].parentNode.innerText,
+            checked: inputs[i].checked
+          })
         }
+
 
         if (!done) {
           if (!confirm('Not everything was checked off. Continue anyway?')) {
@@ -47,11 +63,13 @@
           }
         }
 
-        addCheck(prompt("Notes"))
+        addCheck(prompt("Notes"), items, done)
 
         for(var i = 0; i < inputs.length; i++) {
           inputs[i].checked = false
         }
+
+        setUnload()
       }
 
       function getChecks () {
@@ -79,12 +97,14 @@
         return checks
       }
 
-      function addCheck (notes) {
+      function addCheck (notes, items, complete) {
         notes = notes || ""
         const checks = getChecks()
         checks.push({
           notes: notes,
-          time: new Date()
+          time: new Date(),
+          complete: complete,
+          items: items
         })
 
         saveChecks(checks)
@@ -93,6 +113,10 @@
 
       function saveChecks (checks) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(checks))
+      }
+
+      function checkOrX (complete) {
+        return '<strong class="' + (complete ? 'check' : 'x') + '">' + (complete ? '✓' : 'x') + '</strong> '
       }
 
       function renderRecents () {
@@ -104,17 +128,54 @@
           ul.innerHTML = '<li class="empty-message">No submitted checks.</li>'
         }
 
+        const timeagoInstance = timeago()
         checks.forEach((check) => {
           const li = document.createElement('LI')
-          li.innerHTML = new Date(check.time).toLocaleString();
+          const date = new Date(check.time)
+          const time = timeagoInstance.format(date)
+
+          li.innerHTML = checkOrX(check.complete)
+          li.innerHTML += '<abbr title="' + date.toISOString() + '">' + time + '</abbr>'
           if (check.notes) {
             li.innerHTML += ': ' + check.notes
           }
+
+          if (check.items) {
+            li.innerHTML += '<ul class="check-items">' + check.items.map((item) => {
+              return '<li>' + checkOrX(item.checked) + ' ' + item.text + '</li>'
+            }).join('\n') + '</ul>'
+          }
+
           ul.appendChild(li)
         })
       }
 
-      renderRecents()
+      function setUnload () {
+        let needConfirm = false
+        for(var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            needConfirm = true
+          }
+        }
+
+        if (needConfirm) {
+          window.onbeforeunload = function () {
+            return true
+          }
+        }
+        else {
+          window.onbeforeunload = null
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        renderRecents()
+
+        for(var i = 0; i < checkboxes.length; i++) {
+          const check = checkboxes[i]
+          check.addEventListener('click', setUnload)
+        }
+      })
     </script>
   </body>
 </html>

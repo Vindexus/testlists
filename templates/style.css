@@ -17,7 +17,7 @@ body {
 
 .content {
   margin: 0 auto;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   width: 600px;
   padding-top: 2em;
 }
@@ -84,4 +84,35 @@ li.empty-message {
   padding-left: 2em;
   font-size: 11px;
   color: #666;
+}
+
+abbr {
+  border-bottom: 1px dashed #999;
+  text-decoration: none;
+}
+
+#recent-checks {
+  margin-bottom: 2em;
+}
+
+#recent-checks li {
+  margin-bottom: 0.5em;
+}
+
+#recent-checks ul {
+  font-size: 11px;
+  padding-left: 20px;
+  padding-top: 10px;
+  color: #333;
+}
+
+.x {
+}
+
+.check {
+  color: limegreen;
+}
+
+h4 {
+  color: #999;
 }
