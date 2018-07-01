@@ -6,6 +6,15 @@ Each `testlist.md` file you create in your project will have its own HTML page c
 ## Installation
 `npm install Vindexus/testlists`
 
+## testlist.md File Format
+The file accepts markdown. Any line beginning with ` * ` will turn into a checkbox. Example:
+
+```
+# Registration Page
+ * Email validation is working
+ * Social media icons are up-to-date
+```
+
 ## Scripts
 You can add these to your package.json
 
