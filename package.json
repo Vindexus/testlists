@@ -1,0 +1,27 @@
+{
+  "name": "testlist",
+  "version": "1.0.0",
+  "description": "Makes a page of checklists for a project based on md files in it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vindexus/testlist.git"
+  },
+  "author": "Colin \"Vindexus\" Kierans",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vindexus/testlist/issues"
+  },
+  "homepage": "https://github.com/Vindexus/testlist#readme",
+  "bin": {
+    "gen": "./gen.js"
+  },
+  "dependencies": {
+    "colors": "^1.3.0",
+    "handlebars": "^4.0.11",
+    "showdown": "^1.8.6"
+  }
+}
