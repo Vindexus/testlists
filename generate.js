@@ -10,8 +10,7 @@ const {
 } = require('./lib/definitions')
 
 const {
-  writeHtml,
-  writeIndex
+  writeTestFiles
 } = require('./lib/html')
 
 
@@ -36,9 +35,14 @@ if (!def) {
 
 console.log('Creating checklist HTML pages...'.gray)
 
-writeHtml('', def)
-writeIndex(def)
+writeTestFiles(def, (err) => {
+  if (err) {
+    die(err)
+    return
+  }
 
-console.log('Done!'.bold.green)
+  console.log('Done!'.bold.green)
+  process.exit()
+})
 
-process.exit()
+

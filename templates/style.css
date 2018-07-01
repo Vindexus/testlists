@@ -1,16 +1,25 @@
+* { box-sizing: border-box } 
+
 body {
   font-family: Open Sans,Arial;
   color: #454545;
   font-size: 16px;
-  margin: 2em auto;
-  max-width: 800px;
-  padding: 1em;
   line-height: 1.4;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 .container {
-  width: 600px;
+  min-height: 100%;
+  position: relative;
+}
+
+.content {
   margin: 0 auto;
+  padding-bottom: 40px;
+  width: 600px;
+  padding-top: 2em;
 }
 
 ul {
@@ -19,11 +28,16 @@ ul {
 }
 
 li > ul {
-  padding-left: 1em;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
 }
 
 ul li {
-  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
+}
+
+code {
+  color: firebrick;
 }
 
 .button-container {
@@ -40,7 +54,34 @@ button {
 
 a.back {
   display: block;
-  color: #999;
-  margin-bottom: 1em;
-  color: blue;
-} 
+  margin-bottom: 0.25em;
+  text-decoration: none;
+  padding: 0.25em 0;
+}
+
+a,
+a:visited {
+  color: dodgerblue;
+  text-decoration: none;
+}
+
+a:hover {
+  color: dodgerblue;
+  text-decoration: underline;
+}
+
+li.empty-message {
+  font-style: italic;
+}
+
+.last-generated-message {
+  height: 40px;
+  line-height: 40px;
+  background: #eee;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding-left: 2em;
+  font-size: 11px;
+  color: #666;
+}

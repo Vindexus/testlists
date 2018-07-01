@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "colors": "^1.3.0",
+    "git-branch": "github:jonschlinkert/git-branch",
     "handlebars": "^4.0.11",
     "showdown": "^1.8.6"
   }

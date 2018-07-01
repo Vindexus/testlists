@@ -1,16 +1,19 @@
 <html>
   <head>
-    <title>Testlists</title>
+    <title>Testlists - [{{branch}}]</title>
     <style>
       {{>styles}}
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Checklists</h1>
-      <ul>
-        {{#nav}}{{>navigation}}{{/nav}}
-      </ul>
+      <div class="content">
+        <h1>Checklists{{#if branch}} on Branch <code>{{branch}}</code>{{/if}}</h1>
+        <ul>
+          {{#nav}}{{>navigation}}{{/nav}}
+        </ul>
+      </div>
+      {{>last-gen-message}}
     </div>
   </body>
 </html>
