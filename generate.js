@@ -42,6 +42,7 @@ writeTestFiles(def, (err) => {
   }
 
   console.log('Done!'.bold.green)
+  console.log('Index: ' + ('file:///' + path.resolve(config.destinationDir + '/index.html')).green)
   process.exit()
 })
 
