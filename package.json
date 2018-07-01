@@ -1,5 +1,5 @@
 {
-  "name": "testlist",
+  "name": "testlists",
   "version": "1.0.0",
   "description": "Makes a page of checklists for a project based on md files in it.",
   "main": "index.js",
