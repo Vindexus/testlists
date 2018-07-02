@@ -1,16 +1,14 @@
 <html>
   <head>
     <title>Testlists{{#if branch}} - [{{branch}}]{{/if}}</title>
-    <style>
-      {{>styles}}
-    </style>
+    <link rel="stylesheet" href="{{src}}/style.css" />
   </head>
   <body>
     <div class="container">
       <div class="content">
         {{>branch}}
         <h1>Checklists</h1>
-        <ul>
+        <ul class="nav">
           {{#nav}}{{>navigation}}{{/nav}}
         </ul>
       </div>

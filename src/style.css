@@ -22,22 +22,55 @@ body {
   padding-top: 2em;
 }
 
+ul.nav {
+  color: #999;
+}
+
 ul {
   list-style: inside none;
   padding-left: 0;
 }
 
 li > ul {
-  padding-left: 0.5em;
-  padding-top: 0.5em;
+  padding-left: 1em;
+  margin-top: 1em;
 }
 
 ul li {
   margin-bottom: 0.5em;
 }
 
+ul.nav li ul {
+  border-left: 1px solid #333;
+}
+
+ul.nav li > ul ul {
+  border-left-color: mediumseagreen;
+}
+
+
+ul.nav li > ul ul ul {
+  border-left-color: deepskyblue;
+}
+
+ul.nav li > ul ul ul ul {
+  border-left-color: hotpink;
+}
+
+ul.nav li > ul ul ul ul ul {
+  border-left-color: darkred;
+}
+
+ul.nav li > ul ul ul ul ul ul{
+  border-left-color: orange;
+}
+
 code {
   color: firebrick;
+}
+
+.content li ul {
+  margin-top: 0.5em;
 }
 
 .button-container {

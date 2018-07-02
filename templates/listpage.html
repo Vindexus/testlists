@@ -1,9 +1,7 @@
 <html>
   <head>
     <title>{{title}}{{#if branch}} - [{{branch}}]{{/if}}</title>
-    <style>
-      {{>styles}}
-    </style>
+    <link rel="stylesheet" href="{{src}}/style.css" />
   </head>
   <body>
     <div class="container">
@@ -22,7 +20,7 @@
           <ul id="recent-checks">
           </ul>
 
-           <button type="button" onclick="clearChecks()">Delete Checks</button>
+           <button type="button" onclick="clearChecks()">Delete{{#if branch}} <code>{{branch}}</code>{{/if}} Checks</button>
         </div>
       </div>
       {{>last-gen-message}}
@@ -33,7 +31,7 @@
       const checkboxes = document.querySelectorAll('input[type=checkbox]')
 
       function clearChecks () {
-        if (!prompt("Type DELETE to delete recent checks") !== 'DELETE') {
+        if (prompt("Type DELETE to delete recent checks") != 'DELETE') {
           return
         }
 
@@ -112,7 +110,8 @@
       }
 
       function saveChecks (checks) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(checks))
+        const json = JSON.stringify(checks)
+        localStorage.setItem(STORAGE_KEY, json)
       }
 
       function checkOrX (complete) {
