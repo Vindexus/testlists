@@ -8,6 +8,7 @@ body {
   height: 100%;
   padding: 0px;
   margin: 0px;
+  background: #fbfbfb;
 }
 
 .container {
@@ -41,7 +42,7 @@ ul li {
 }
 
 ul.nav li ul {
-  border-left: 1px solid #333;
+  border-left: 1px solid darkorange;
 }
 
 ul.nav li > ul ul {
@@ -69,6 +70,11 @@ code {
   color: firebrick;
 }
 
+
+button code {
+  color: red;
+}
+
 .content li ul {
   margin-top: 0.5em;
 }
@@ -85,11 +91,23 @@ button {
   color: #fff;
 }
 
+button:hover {
+  cursor: pointer;
+  background: #444;
+}
+
 a.back {
-  display: block;
+  display: inline-block;
   margin-bottom: 0.25em;
   text-decoration: none;
-  padding: 0.25em 0;
+  padding: 0.75em 1.5em;
+  background: steelblue;
+  color: #fff !important;
+}
+
+a.back:hover {
+  text-decoration: none;
+  background: dodgerblue;
 }
 
 a,
