@@ -2,6 +2,7 @@
   <head>
     <title>{{title}}{{#if branch}} - [{{branch}}]{{/if}}</title>
     <link rel="stylesheet" href="{{src}}/style.css" />
+    <meta charset="UTF-8">
   </head>
   <body>
     <div class="container">
@@ -25,9 +26,10 @@
       </div>
       {{>last-gen-message}}
     </div>
+    <script type="text/javascript" src="{{src}}/scripts.js"></script>
     <script type="text/javascript" src="{{src}}/timeago.js"></script>
     <script type="text/javascript">
-      const STORAGE_KEY = '{{key}}-{{branch}}'
+      const STORAGE_KEY = '{{basename}}-{{branch}}'
       const checkboxes = document.querySelectorAll('input[type=checkbox]')
 
       function clearChecks () {
@@ -61,7 +63,7 @@
           }
         }
 
-        addCheck(prompt("Notes"), items, done)
+        addCheck(prompt("Notes (optional)"), items, done)
 
         for(var i = 0; i < inputs.length; i++) {
           inputs[i].checked = false
@@ -70,34 +72,9 @@
         setUnload()
       }
 
-      function getChecks () {
-        let checks = localStorage.getItem(STORAGE_KEY)
-
-        try {
-          checks = JSON.parse(checks)
-        }
-        catch {
-          checks = []
-        }
-
-        checks = checks || []
-
-        const cutoff = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).getTime()
-        checks = checks
-          .filter((a) => {
-            const time = new Date(a.time).getTime()
-            return time > (cutoff)
-          })
-          .sort((a, b) => {
-            return a.time > b.time ? -1 : 1
-          })
-
-        return checks
-      }
-
       function addCheck (notes, items, complete) {
         notes = notes || ""
-        const checks = getChecks()
+        const checks = getChecks(STORAGE_KEY)
         checks.push({
           notes: notes,
           time: new Date(),
@@ -114,12 +91,8 @@
         localStorage.setItem(STORAGE_KEY, json)
       }
 
-      function checkOrX (complete) {
-        return '<strong class="' + (complete ? 'check' : 'x') + '">' + (complete ? '✓' : 'x') + '</strong> '
-      }
-
       function renderRecents () {
-        const checks = getChecks()
+        const checks = getChecks(STORAGE_KEY)
         const ul = document.getElementById('recent-checks')
         ul.innerHTML = ''
 

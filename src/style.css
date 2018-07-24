@@ -167,3 +167,7 @@ abbr {
 h4 {
   color: #999;
 }
+
+span {
+  font-size: 0.75em;
+}

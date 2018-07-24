@@ -2,6 +2,7 @@
   <head>
     <title>Testlists{{#if branch}} - [{{branch}}]{{/if}}</title>
     <link rel="stylesheet" href="{{src}}/style.css" />
+    <meta charset="UTF-8">
   </head>
   <body>
     <div class="container">
@@ -14,5 +15,33 @@
       </div>
       {{>last-gen-message}}
     </div>
+    <script type="text/javascript" src="{{src}}/timeago.js"></script>
+    <script type="text/javascript" src="{{src}}/scripts.js"></script>
+    <script type="text/javascript">
+      const branch = '{{branch}}'
+      const statuses = document.querySelectorAll('span[data-basename]')
+      const timeagoInstance = timeago()
+
+      for(var i = 0; i < statuses.length; i++) {
+        const span = statuses[i]
+        const key = span.dataset.basename + '-' + branch
+        const json = localStorage.getItem(key)
+        const checks = getChecks(key)
+
+        if (checks && checks.length > 0) {
+          const recent = checks[0]
+          const date = new Date(recent.time)
+          const time = timeagoInstance.format(date)
+
+          span.innerHTML = checkOrX(recent.complete)
+          span.innerHTML += ' <abbr title="' + date.toISOString() + '">' + time + '</abbr>'
+        }
+        else {
+          span.innerText = ''
+        }
+      }
+
+
+    </script>
   </body>
 </html>
