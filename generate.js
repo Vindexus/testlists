@@ -42,7 +42,7 @@ writeTestFiles(def, (err) => {
   }
 
   console.log('Done!'.bold.green)
-  console.log('Index: ' + (config.src + '/index.html')).green)
+  console.log('Index: ' + (config.src + '/index.html').green)
   process.exit()
 })
 
